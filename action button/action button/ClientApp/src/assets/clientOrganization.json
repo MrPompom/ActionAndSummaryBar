@@ -1,0 +1,16 @@
+[
+  {
+    "Id": "APT",
+    "LevelCount": 3,
+    "Levels": [
+      "Town",
+      "Niveau 1",
+      " Niveau 2"
+    ]
+  },
+  {
+    "Id": "LYONNAISE",
+    "LevelCount": 4,
+    "Levels": [ "Contractant", "Agence", "Contrat", "Ville" ]
+  }
+]

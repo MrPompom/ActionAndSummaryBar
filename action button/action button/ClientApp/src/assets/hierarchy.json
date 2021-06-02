@@ -1,0 +1,107 @@
+{
+  "Label": "Tous",
+  "Path": "ALL",
+  "Children": [
+    {
+      "Label": "APT",
+      "Path": "ALL.APT",
+      "Children": [
+        {
+          "Label": "PAC - Provence Alpes Côte d'Azur",
+          "Path": "ALL.APT.PACProvenceAlpesCotedAzur",
+          "Children": []
+        }
+      ]
+    },
+    {
+      "Label": "AREZZO",
+      "Path": "ALL.AREZZO",
+      "Children": []
+    },
+    {
+      "Label": "CALEDONIE",
+      "Path": "ALL.CALEDONIE",
+      "Children": [
+        {
+          "Label": "NOUVELLE CALEDONIE",
+          "Path": "ALL.CALEDONIE.NOUVELLECALEDONIE",
+          "Children": [
+            {
+              "Label": "NOUVELLE CALEDONIE",
+              "Path": "ALL.CALEDONIE.NOUVELLECALEDONIE.NOUVELLECALEDONIE",
+              "Children": []
+            },
+            {
+              "Label": "AQUANORD",
+              "Path": "ALL.CALEDONIE.NOUVELLECALEDONIE.AQUANORD",
+              "Children": [
+                {
+                  "Label": "KOUMAC",
+                  "Path": "ALL.CALEDONIE.NOUVELLECALEDONIE.AQUANORD.KOUMAC",
+                  "Children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Label": "CARENE",
+      "Path": "ALL.CARENE",
+      "Children": [
+        {
+          "Label": "CARENE SAINT-NAZAIRE",
+          "Path": "ALL.CARENE.CARENESAINTNAZAIRE",
+          "Children": [
+            {
+              "Label": "CARENE SAINT-NAZAIRE",
+              "Path": "ALL.CARENE.CARENESAINTNAZAIRE.CARENESAINTNAZAIRE",
+              "Children": [
+                {
+                  "Label": "CARENE SAINT-NAZAIRE",
+                  "Path": "ALL.CARENE.CARENESAINTNAZAIRE.CARENESAINTNAZAIRE.CARENESAINTNAZAIRE",
+                  "Children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Label": "LYDEC",
+      "Path": "ALL.LYDEC",
+      "Children": [
+        {
+          "Label": "LYDEC",
+          "Path": "ALL.LYDEC.LYDEC",
+          "Children": [
+            {
+              "Label": "CASABLANCA",
+              "Path": "ALL.LYDEC.LYDEC.CASABLANCA",
+              "Children": [
+                {
+                  "Label": "CASABLANCA",
+                  "Path": "ALL.LYDEC.LYDEC.CASABLANCA.CASABLANCA",
+                  "Children": []
+                }
+              ]
+            },
+            {
+              "Label": "LYDEC a annuler",
+              "Path": "ALL.LYDEC.LYDEC.LYDECaannuler",
+              "Children": [
+                {
+                  "Label": "LYDEC a annuler",
+                  "Path": "ALL.LYDEC.LYDEC.LYDECaannuler.LYDECaannuler",
+                  "Children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

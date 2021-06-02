@@ -1,0 +1,28 @@
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\action button.exe
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\action button.deps.json
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\action button.runtimeconfig.json
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\action button.runtimeconfig.dev.json
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\action button.dll
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\action button.pdb
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.NodeServices.dll
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.SpaServices.dll
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.SpaServices.Extensions.dll
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\OBB638\source\repos\action button\action button\bin\Debug\netcoreapp3.1\VueCliMiddleware.dll
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.csprojAssemblyReference.cache
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.AssemblyInfoInputs.cache
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.AssemblyInfo.cs
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.csproj.CoreCompileInputs.cache
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\staticwebassets\action button.StaticWebAssets.Manifest.cache
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\staticwebassets\action button.StaticWebAssets.xml
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\scopedcss\bundle\action button.styles.css
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.RazorTargetAssemblyInfo.cache
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.csproj.CopyComplete
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.dll
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.pdb
+C:\Users\OBB638\source\repos\action button\action button\obj\Debug\netcoreapp3.1\action button.genruntimeconfig.cache
+C:\Users\OBB638\source\repos\Action Button\action button\bin\Debug\netcoreapp3.1\package-lock.json
