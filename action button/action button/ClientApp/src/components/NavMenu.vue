@@ -22,7 +22,7 @@
                             <router-link :to="{ name: 'summary' }" class="nav-link text-dark">Summary</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name: 'FetchData' }" class="nav-link text-dark">Fetch Data</router-link>
+                            <router-link :to="{ name: 'FetchData' }" class="nav-link text-dark">Test</router-link>
                         </li>
                     </ul>
                 </div>

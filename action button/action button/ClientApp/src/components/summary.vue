@@ -135,7 +135,7 @@
                 greenTransmiterVisible: 291000,
                 orangeTransmiterInstalled: 19000,
                 orangeTransmiterVisible: 51116119,
-                redTransmiterInstalled: 5959999,
+                redTransmiterInstalled: 59599000099,
                 redTransmiterVisible: 969999,
 
                 greenConcentratorInstalled: 0,

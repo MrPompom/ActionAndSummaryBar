@@ -1,5 +1,6 @@
 <template>
     <meta charset="utf-8">
+    <summary-bar></summary-bar>
     <div class="filter">
         <div class="filter-bar">
             <div>
@@ -20,43 +21,16 @@
         </div>
         <div v-show="FilterisVisible==true" id="filter-options">
             <div id="contractBar">
-                <div id="contract">
+            <div id="contract">
                     <p>Contrat</p>
                     <svg @click="ContractOptionisVisible=!ContractOptionisVisible" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.6753 11.2899L11.3637 7.04995C11.2692 6.95622 11.1567 6.88183 11.0328 6.83106C10.9089 6.78029 10.776 6.75415 10.6417 6.75415C10.5075 6.75415 10.3746 6.78029 10.2506 6.83106C10.1267 6.88183 10.0143 6.95622 9.91973 7.04995C9.73033 7.23731 9.62402 7.49076 9.62402 7.75495C9.62402 8.01913 9.73033 8.27259 9.91973 8.45995L13.5195 11.9999L9.91973 15.5399C9.73033 15.7273 9.62402 15.9808 9.62402 16.2449C9.62402 16.5091 9.73033 16.7626 9.91973 16.9499C10.0147 17.0426 10.1274 17.116 10.2513 17.1657C10.3752 17.2155 10.5079 17.2407 10.6417 17.2399C10.7756 17.2407 10.9082 17.2155 11.0321 17.1657C11.156 17.116 11.2687 17.0426 11.3637 16.9499L15.6753 12.7099C15.7707 12.617 15.8463 12.5064 15.8979 12.3845C15.9496 12.2627 15.9761 12.132 15.9761 11.9999C15.9761 11.8679 15.9496 11.7372 15.8979 11.6154C15.8463 11.4935 15.7707 11.3829 15.6753 11.2899Z" fill="#3D466C" />
                     </svg>
                 </div>
                 <div v-show="ContractOptionisVisible==true" id="contractOptions">
-                    <p> Clients </p>
-                    <div>
-                        <multiselect v-model="ClientValue"
-                                     :options="myhierarchy.Children"
-                                     mode="tags"
-                                     :searchable="true"
-                                     placeholder="Tous"
-                                     label="Label"
-                                     valueProp="Children"
-                                     :createTag="true">
-                        </multiselect>
-                        <multiselect v-model="ClientValue2"
-                                     :options="SelectClient(ClientValue)"
-                                     mode="tags"
-                                     placeholder="Tous"
-                                     :searchable="true"
-                                     label="Label"
-                                     valueProp="Children"
-                                     :createTag="true">
-                        </multiselect>
-                        <multiselect v-model="ClientValue3"
-                                     :options="SelectClient(ClientValue2)"
-                                     mode="tags"
-                                     :searchable="true"
-                                     placeholder="Tous"
-                                     label="Label"
-                                     valueProp="Children"
-                                     :createTag="true">
-                        </multiselect>
-                        {{ClientValue3}}
+                    
+                    <div >
+                       <custom-multiselect  id=ClientSelected v-for="element in clientOptions" :key="element" :initialOption="element.option" v-on:childtoparent="onChildClick($event,element.id)"></custom-multiselect>
                     </div>
                 </div>
             </div>
@@ -67,25 +41,25 @@
                             <th>Date</th>
                             <th>Période recherché</th>
                         </tr>
-                    </thead>
+                    </thead>           
                     <tbody>
                         <tr>
-                            <td id="SelectDate">
-                                <input type="date" id="DateSelected" name="calandar"
-                                       value="2010-01-01"
-                                       min="2010-01-01" max="2030-12-31">
+                            
+                            <td id="selectDate">
+                                <input type="date" v-model="dateSelected" name="calandar" min="2010-01-01" max="2030-12-31">
                             </td>
                             <td>
-                                <select id="PeriodSelected" name="day-select">
+                                
+                                <select v-model="periodSelected" name="day-select">
                                     <option value="1">1 Jour</option>
                                     <option value="5">5 Jours</option>
                                     <option value="7">7 Jours</option>
-                                    <option value="10" selected>10 Jours</option>
+                                    <option value="10">10 Jours</option>
                                     <option value="30">30 Jours</option>
                                 </select>
                             </td>
                         </tr>
-                    </tbody>
+                    </tbody>         
                 </table>
             </div>
             <div id="checkboxOption">
@@ -135,8 +109,8 @@
                             </th>
                         </tr>
                         <tr>
-                            <td><label class="checkbox"><input type="checkbox" @click="selectAllTransmiter" v-model="allSelectedTransmiter"> <span>Tout Choisi</span></label></td>
-                            <td><label class="checkbox"><input type="checkbox" @click="selectAllConcentrator" v-model="allSelectedConcentrator"> <span>Tout Choisi</span></label></td>
+                            <td><label class="checkbox"><input type="checkbox" @click="selectAllTransmiter" v-model="allSelectedTransmiter"> <span>Tout Choisir</span></label></td>
+                            <td><label class="checkbox"><input type="checkbox" @click="selectAllConcentrator" v-model="allSelectedConcentrator"> <span>Tout Choisir</span></label></td>
                         </tr>
                         <tbody id="checkboxList">
                             <tr>
@@ -144,7 +118,7 @@
                                     <ul v-for="element in transmiter" v-bind:key="element" style="list-style-type:none">
                                         <li>
                                             <label class="checkbox">
-                                                <input type="checkbox" :id="element.id" v-model="selectedId" @click="selectTransmiter" :value="element.id">
+                                                <input type="checkbox" :id="element.id" v-model="selectedIdTransmiter" @click="selectTransmiter" :value="element.id">
 
                                                 <span>
                                                     <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,7 +135,7 @@
                                     <ul v-for="element in concentrator" v-bind:key="element" style="list-style-type:none">
                                         <li>
                                             <label class="checkbox">
-                                                <input type="checkbox" :id="element.id" v-model="selectedId" @click="selectConcentrator" :value="element.id">
+                                                <input type="checkbox" :id="element.id" v-model="selectedIdConcentrator" @click="selectConcentrator" :value="element.id">
                                                 <span>
                                                     <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1.33329 0.505591C1.82664 0.175947 2.40666 0 3 0C3.79565 0 4.55871 0.316071 5.12132 0.87868C5.68393 1.44129 6 2.20435 6 3C6 3.59334 5.82405 4.17336 5.49441 4.66671C5.16476 5.16006 4.69623 5.54457 4.14805 5.77164C3.59987 5.9987 2.99667 6.05811 2.41473 5.94235C1.83279 5.8266 1.29824 5.54088 0.878682 5.12132C0.459124 4.70176 0.173401 4.16721 0.0576455 3.58527C-0.0581101 3.00333 0.00129984 2.40013 0.228363 1.85195C0.455426 1.30377 0.839942 0.835235 1.33329 0.505591Z" :fill="element.color" />
@@ -197,7 +171,7 @@
                     </tr>
                 </table>
                 <div id="Send">
-                    <div id="btns">
+                    <div @click="resetInformation" id="btns">
                         <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3.12 2.77C4.97349 0.998914 7.43639 0.00731219 10 0C11.9778 0 13.9112 0.58649 15.5557 1.6853C17.2002 2.78412 18.4819 4.3459 19.2388 6.17317C19.9957 8.00043 20.1937 10.0111 19.8079 11.9509C19.7137 12.4243 19.5858 12.8883 19.4259 13.3396L17.7662 11.9509C18.1181 10.5273 18.0736 9.02656 17.6263 7.61479C17.0646 5.84191 15.9028 4.32011 14.3407 3.31104C12.7785 2.30198 10.9136 1.86868 9.06653 2.08567C7.21951 2.30265 5.50578 3.15636 4.22 4.5H6.62C6.88522 4.5 7.13957 4.60536 7.32711 4.79289C7.51464 4.98043 7.62 5.23478 7.62 5.5C7.62 5.76522 7.51464 6.01957 7.32711 6.20711C7.13957 6.39464 6.88522 6.5 6.62 6.5H2.12C1.85478 6.5 1.60043 6.39464 1.41289 6.20711C1.22536 6.01957 1.12 5.76522 1.12 5.5V1C1.12 0.734784 1.22536 0.48043 1.41289 0.292893C1.60043 0.105357 1.85478 0 2.12 0C2.38522 0 2.63957 0.105357 2.82711 0.292893C3.01464 0.48043 3.12 0.734784 3.12 1V2.77Z" fill="white" />
                             <path d="M8.45956 17.8813C10.2845 18.2394 12.1772 17.9505 13.8122 17.0643L16.1551 17.8813C14.9279 18.8397 13.4891 19.5019 11.9509 19.8079C10.0111 20.1937 8.00043 19.9957 6.17317 19.2388C4.3459 18.4819 2.78412 17.2002 1.6853 15.5557C0.58649 13.9112 0 11.9778 0 10C0 9.73478 0.105357 9.48043 0.292893 9.29289C0.48043 9.10536 0.734784 9 1 9C1.26522 9 1.51957 9.10536 1.70711 9.29289C1.89464 9.48043 2 9.73478 2 10C1.99279 11.8597 2.63372 13.6638 3.81259 15.1022C4.99147 16.5405 6.63463 17.5232 8.45956 17.8813Z" fill="white" />
@@ -220,52 +194,76 @@
 <script>
 
     import hierarchy from "../assets/hierarchy.json"
-    import Multiselect from '@vueform/multiselect'
-
+    import CustomMultiselect from './CustomMultiselect.vue'
+    import SummaryBar from './summary.vue'
     export default {
         name: "Actionsbutton",
         components: {
-            Multiselect,
+            CustomMultiselect,
+            SummaryBar,
         },
         data() {
+            
             return {
                 transmiter: [
                     { "id": "transmiterOneFrameEveryDay", "name": "Au moins  trame quot.", "color": "#79E480" },
                     { "id": "atLeast1Frame", "name": "Au moins 1 trame", "color": "#FFA34E" },
-                    { "id": "NoFrame", "name": "Acune trame", "color": "#EE685E" },
+                    { "id": "NoFrame", "name": "Aucune trame", "color": "#EE685E" },
                 ],
                 concentrator: [
                     { "id": "Variation", "name": "Variations", "color": "#79E480" },
                     { "id": "Fonctionnal", "name": "En Fonction", "color": "#FFA34E" },
                     { "id": "Default", "name": "En défault", "color": "#EE685E" },
                 ],
+                clientOptions: [
+                    { "option": hierarchy.Children, "id": 0 },
+                ],
+                dateSelected: Date.now,
+                periodSelected: "10",
+                count: 0,
+                clientPath: [],
                 selected: [],
                 allSelected: false,
+                allSelectedTransmiter: false,
+                allSelectedConcentrator: false,
+                selectedIdTransmiter: [],
+                selectedIdConcentrator: [],
                 selectedId: [],
-                ClientValue: [],
-                ClientValue2: [],
-                ClientValue3: [],
-                ClientId: [],
-                myhierarchy: hierarchy,
                 FilterisVisible: false,
-                ContractOptionisVisible: false,
+                ContractOptionisVisible: false
             }
         },
         methods: {
-            SelectClient: function (SelectedValue) {
-                var ValueOfClient = [];
-                this.ClientId = SelectedValue.Path;
-                for (let x = 0; x < SelectedValue.length; x += 1) {
-                    ValueOfClient = ValueOfClient.concat(SelectedValue[x]);
-                }
-                this.ClientId = ValueOfClient;
-                return ValueOfClient
+            onChildClick (val, index) {  
+                this.clientOptions = this.clientOptions.filter(el => {
+                    return el.id <= index
+                })
+                this.clientPath[index] = this.getPath(val)
+                this.clientPath = this.cleanPath(this.clientPath)
+                if (this.getOptions(val).length !== 0) {
+                this.clientOptions.push({"option": this.getOptions(val), "id":  (index+1)});
+                }                
+            },
+            getOptions(parentSelectOptions) {
+                return parentSelectOptions.flatMap(el => el[0].Children)
+            },
+            cleanPath(arrayOfPath) {
+                let copie = [];
+                arrayOfPath.some(function(el) {
+                    copie.push(el)
+                    return el.length === 0;
+                })
+                return copie[copie.length-1].length === 0 ? copie.slice(0, -1) : copie
+            },
+            getPath(SelectedValue) {
+                return SelectedValue.flatMap(el => el[0].Path)
             },
             selectAllTransmiter: function () {
-                this.selectedId = [];
-                if (this.allSelectedTransmiter) {
+                this.selectedIdTransmiter = [];
+
+                if (!this.allSelectedTransmiter) {
                     for (this.element in this.transmiter) {
-                        this.selectedId.push(this.transmiter[this.element].id.toString());
+                        this.selectedIdTransmiter.push(this.transmiter[this.element].id.toString());
                     }
                 }
             },
@@ -274,11 +272,11 @@
             },
 
             selectAllConcentrator: function () {
-                this.selectedId = [];
+                this.selectedIdConcentrator = [];
 
-                if (this.allSelectedConcentrator) {
+                if (!this.allSelectedConcentrator) {
                     for (this.element in this.concentrator) {
-                        this.selectedId.push(this.concentrator[this.element].id.toString());
+                        this.selectedIdConcentrator.push(this.concentrator[this.element].id.toString());
                     }
                 }
             },
@@ -286,10 +284,27 @@
                 this.allSelectedConcentrator = false;
             },
             SendInformation() {
-                var calendar = document.getElementById("DateSelected").value;
-                var period = document.getElementById("PeriodSelected").value;
-                console.log([calendar, period, this.selectedId]);
-                console.log(this.ClientId);
+                var emitInformations = {
+                    ajoutElem: function ajoutElem(elem) {
+                        [].push.call(this, elem);
+                    }
+                };
+
+                emitInformations.ajoutElem(this.selectedIdTransmiter.concat(this.selectedIdConcentrator));
+                emitInformations.ajoutElem(this.dateSelected);
+                emitInformations.ajoutElem(this.periodSelected);
+                emitInformations.ajoutElem(this.clientPath);
+
+                console.log(emitInformations)
+            },
+            resetInformation() {
+                this.allSelectedTransmiter = false;
+                this.allSelectedConcentrator = false;
+                this.selectedIdTransmiter = [];
+                this.selectedIdConcentrator = [];
+                this.clientOptions = [{ "option": hierarchy.Children, "id": 0 }]
+                this.periodSelected='10';
+                this.dateSelected='2010-01-01';
             }
         }
     }
@@ -371,10 +386,13 @@
 
     #contractBar {
         margin: 0 16px 0 16px;
-        padding: 18px 0 0 0;
+        padding: 12px 0 0 0;
         border-bottom: 1px solid #BDCDE5;
     }
 
+    #ClientSelected {
+       padding: 0 0 12px 0; 
+    }
     #contract {
         display: flex;
         justify-content: space-between;
