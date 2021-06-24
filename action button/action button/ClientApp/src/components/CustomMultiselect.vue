@@ -15,6 +15,7 @@
 
 <script>
 import Multiselect from '@vueform/multiselect'
+import { onMounted } from '@vue/runtime-core'
 
 export default {
  name: 'CustomMultiselect',
@@ -42,6 +43,11 @@ export default {
             })
          )
          this.$emit('childtoparent', clientChildren)
+     }
+ },
+ mounted() {
+     if(this.option.length == 1) {
+         this.value = this.option.map(el => el.Path)
      }
  }
 }

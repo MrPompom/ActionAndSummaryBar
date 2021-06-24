@@ -218,7 +218,7 @@
                 clientOptions: [
                     { "option": hierarchy.Children, "id": 0 },
                 ],
-                dateSelected: Date.now,
+                dateSelected: "2010-01-01",
                 periodSelected: "10",
                 count: 0,
                 clientPath: [],
