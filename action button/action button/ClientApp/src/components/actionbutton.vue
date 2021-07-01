@@ -29,8 +29,9 @@
                 </div>
                 <div v-show="ContractOptionisVisible==true" id="contractOptions">
                     
-                    <div >
-                       <custom-multiselect  id=ClientSelected v-for="element in clientOptions" :key="element" :initialOption="element.option" v-on:childtoparent="onChildClick($event,element.id)"></custom-multiselect>
+                    <div id="clientSelected" v-for="element in clientOptions" :key="element">
+                        {{element.name}}
+                       <custom-multiselect :initialOption="element.option" v-on:childtoparent="onChildClick($event,element.id)" :key="element.option"></custom-multiselect>
                     </div>
                 </div>
             </div>
@@ -194,8 +195,10 @@
 <script>
 
     import hierarchy from "../assets/hierarchy.json"
+    import clientOrganization from '../assets/clientOrganization'
     import CustomMultiselect from './CustomMultiselect.vue'
     import SummaryBar from './summary.vue'
+
     export default {
         name: "Actionsbutton",
         components: {
@@ -216,12 +219,12 @@
                     { "id": "Default", "name": "En défault", "color": "#EE685E" },
                 ],
                 clientOptions: [
-                    { "option": hierarchy.Children, "id": 0 },
+                    { "option": hierarchy.Children, "id": 0, "name": "Client"},
                 ],
                 dateSelected: "2010-01-01",
                 periodSelected: "10",
-                count: 0,
-                clientPath: [],
+                numberOfMultiselect: 0,
+                clientPathSelected: [],
                 selected: [],
                 allSelected: false,
                 allSelectedTransmiter: false,
@@ -234,29 +237,95 @@
             }
         },
         methods: {
-            onChildClick (val, index) {  
+            onChildClick (val, index) {
+                let multiselectOrganization = [];
+                if (index == 0) {
                 this.clientOptions = this.clientOptions.filter(el => {
                     return el.id <= index
+                })}
+                val.forEach(el => {
+                clientOrganization.forEach( element => {
+                    if(el.Label == element.Id)
+                    multiselectOrganization.push(element)
                 })
-                this.clientPath[index] = this.getPath(val)
-                this.clientPath = this.cleanPath(this.clientPath)
-                if (this.getOptions(val).length !== 0) {
-                this.clientOptions.push({"option": this.getOptions(val), "id":  (index+1)});
-                }                
+                });
+                
+                if (index == 0) {
+                this.numberOfMultiselect = this.getNumberOfMultiselect(multiselectOrganization)
+                for(let nb = 0 ; nb < this.numberOfMultiselect; nb += 1) {   
+                this.clientOptions.push({"option": [], "id":  (nb+1), "name": this.getNameByTier(nb, multiselectOrganization)});
+                }}
+                if(index < this.numberOfMultiselect) {
+                    this.clientPathSelected[index] = val
+                    this.clientOptions[index+1].option = this.getOptions(val);
+                    for (let nb = index+2; nb <= this.numberOfMultiselect; nb += 1) {
+                        this.clientOptions[nb].option = this.getOptions(this.clientOptions[nb-1].option)
+                    }
+                }
+                this.clientPathSelected[index] = this.getPath(val)
+                this.clientPathSelected = this.cleanPath(this.clientPathSelected, index)
             },
             getOptions(parentSelectOptions) {
-                return parentSelectOptions.flatMap(el => el[0].Children)
+                return parentSelectOptions.flatMap(el => el.Children)
             },
-            cleanPath(arrayOfPath) {
-                let copie = [];
-                arrayOfPath.some(function(el) {
-                    copie.push(el)
-                    return el.length === 0;
+            getNumberOfMultiselect(val) {
+            let numbermax = 0;
+            val.forEach(el => {
+                if(numbermax < el.LevelCount)
+                numbermax = el.LevelCount
+            })
+            return numbermax
+            },
+            getNameByTier(tier, value) {
+            let name = [];
+            value.forEach(el => {
+                if (!name.includes(el.Levels[tier])) {
+                name.push(el.Levels[tier])
+                }
+            })
+            name = name.filter(el => el != null)
+            name = name.join(' / ')
+            return name
+            },
+            getPath(value) {
+                return value.flatMap(el => el.Path)
+            },
+            getLastPathPerTree(arrayOfPath) {
+                let result = arrayOfPath[0];
+
+                for(let nb = 1; nb < arrayOfPath.length; nb += 1) {
+                    let temp = result
+                    result = result.map(element => {
+                        return arrayOfPath[nb].filter(el => el.includes(element))
+                    })
+                    result = result.flatMap((el, index) => {
+                        if (el.length == 0) {
+                            return el = temp[index]
+                        }
+                        else
+                        return el
+                    })
+                }
+
+                /*result = tier1.map(element => { 
+                return tier2.filter(el => el.includes(element))
                 })
-                return copie[copie.length-1].length === 0 ? copie.slice(0, -1) : copie
+
+                result = result.flatMap((el, index) => {
+                    if (el.length == 0) {
+                    return el = tier1[index]
+                    }
+                else 
+                    return el
+                })*/
+                return result
             },
-            getPath(SelectedValue) {
-                return SelectedValue.flatMap(el => el[0].Path)
+            cleanPath(table, index) {
+                for (let nb = 0; nb <= this.numberOfMultiselect; nb += 1) {
+                    if (nb > index)
+                    table[nb] = []
+                }
+                return table
             },
             selectAllTransmiter: function () {
                 this.selectedIdTransmiter = [];
@@ -289,12 +358,11 @@
                         [].push.call(this, elem);
                     }
                 };
-
+                emitInformations.ajoutElem(this.getLastPathPerTree(this.clientPathSelected))
                 emitInformations.ajoutElem(this.selectedIdTransmiter.concat(this.selectedIdConcentrator));
                 emitInformations.ajoutElem(this.dateSelected);
                 emitInformations.ajoutElem(this.periodSelected);
-                emitInformations.ajoutElem(this.clientPath);
-
+                
                 console.log(emitInformations)
             },
             resetInformation() {
@@ -390,8 +458,9 @@
         border-bottom: 1px solid #BDCDE5;
     }
 
-    #ClientSelected {
-       padding: 0 0 12px 0; 
+    #clientSelected {
+       padding: 0 0 12px 0;
+       text-align: left;
     }
     #contract {
         display: flex;

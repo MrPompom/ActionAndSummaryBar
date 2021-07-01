@@ -15,12 +15,11 @@
 
 <script>
 import Multiselect from '@vueform/multiselect'
-import { onMounted } from '@vue/runtime-core'
+
 
 export default {
  name: 'CustomMultiselect',
         props: {
-
             initialOption: {
                 type: Array,
             },
@@ -35,9 +34,8 @@ export default {
   }
  },
  methods: {
-     getChildrensFromPath: function(val) {
-        
-          let clientChildren = val.map(singleValue => 
+     getChildrensFromPath: function(val) {        
+          let clientChildren = val.flatMap(singleValue => 
             this.option.filter(objOption => {
                 return objOption.Path === singleValue 
             })
@@ -48,6 +46,12 @@ export default {
  mounted() {
      if(this.option.length == 1) {
          this.value = this.option.map(el => el.Path)
+         let clientChildren = this.value.flatMap(singleValue => 
+            this.option.filter(objOption => {
+                return objOption.Path === singleValue 
+            })
+         )
+         this.$emit('childtoparent', clientChildren)
      }
  }
 }

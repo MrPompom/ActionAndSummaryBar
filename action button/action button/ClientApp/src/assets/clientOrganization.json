@@ -1,6 +1,6 @@
 [
   {
-    "Id": "APT",
+    "Id": "CARENE",
     "LevelCount": 3,
     "Levels": [
       "Town",
@@ -9,8 +9,23 @@
     ]
   },
   {
-    "Id": "LYONNAISE",
-    "LevelCount": 4,
-    "Levels": [ "Contractant", "Agence", "Contrat", "Ville" ]
+    "Id": "LYDEC",
+    "LevelCount": 3,
+    "Levels": [ "Contractant", "Agence", "Contrat"]
+  },
+  {
+    "Id": "APT",
+    "LevelCount": 1,
+    "Levels": [ "Ville"]
+  },
+  {
+    "Id": "CALEDONIE",
+    "LevelCount": 3,
+    "Levels": [ "Contractant", "Tier 1", "Tier 2"]
+  },
+  {
+    "Id": "AREZZO",
+    "LevelCount": 0,
+    "Levels": []
   }
 ]
