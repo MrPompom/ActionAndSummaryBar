@@ -20,6 +20,9 @@ import Multiselect from '@vueform/multiselect'
 export default {
  name: 'CustomMultiselect',
         props: {
+            initialValue: {
+                type: Array,
+            },
             initialOption: {
                 type: Array,
             },
@@ -29,7 +32,7 @@ export default {
  },
  data: function() {
    return  {
-       value: [],
+       value: this.initialValue,
        option: this.initialOption,
   }
  },
@@ -43,17 +46,6 @@ export default {
          this.$emit('childtoparent', clientChildren)
      }
  },
- mounted() {
-     if(this.option.length == 1) {
-         this.value = this.option.map(el => el.Path)
-         let clientChildren = this.value.flatMap(singleValue => 
-            this.option.filter(objOption => {
-                return objOption.Path === singleValue 
-            })
-         )
-         this.$emit('childtoparent', clientChildren)
-     }
- }
 }
 
 

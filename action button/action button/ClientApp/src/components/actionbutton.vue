@@ -23,15 +23,19 @@
             <div id="contractBar">
             <div id="contract">
                     <p>Contrat</p>
-                    <svg @click="ContractOptionisVisible=!ContractOptionisVisible" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg v-if="ContractOptionisVisible==false" @click="ContractOptionisVisible=!ContractOptionisVisible" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.6753 11.2899L11.3637 7.04995C11.2692 6.95622 11.1567 6.88183 11.0328 6.83106C10.9089 6.78029 10.776 6.75415 10.6417 6.75415C10.5075 6.75415 10.3746 6.78029 10.2506 6.83106C10.1267 6.88183 10.0143 6.95622 9.91973 7.04995C9.73033 7.23731 9.62402 7.49076 9.62402 7.75495C9.62402 8.01913 9.73033 8.27259 9.91973 8.45995L13.5195 11.9999L9.91973 15.5399C9.73033 15.7273 9.62402 15.9808 9.62402 16.2449C9.62402 16.5091 9.73033 16.7626 9.91973 16.9499C10.0147 17.0426 10.1274 17.116 10.2513 17.1657C10.3752 17.2155 10.5079 17.2407 10.6417 17.2399C10.7756 17.2407 10.9082 17.2155 11.0321 17.1657C11.156 17.116 11.2687 17.0426 11.3637 16.9499L15.6753 12.7099C15.7707 12.617 15.8463 12.5064 15.8979 12.3845C15.9496 12.2627 15.9761 12.132 15.9761 11.9999C15.9761 11.8679 15.9496 11.7372 15.8979 11.6154C15.8463 11.4935 15.7707 11.3829 15.6753 11.2899Z" fill="#3D466C" />
                     </svg>
+                    <svg v-if="ContractOptionisVisible==true" @click="ContractOptionisVisible=!ContractOptionisVisible" style="margin-right: 8px" width="12" height="24" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.8818 1.16994C10.6912 0.983692 10.4335 0.87915 10.1649 0.87915C9.89622 0.87915 9.63848 0.983692 9.44796 1.16994L5.79731 4.70994L2.19751 1.16994C2.00698 0.983692 1.74924 0.87915 1.4806 0.87915C1.21195 0.87915 0.954214 0.983692 0.763686 1.16994C0.668374 1.26291 0.592723 1.37351 0.541097 1.49537C0.48947 1.61723 0.462891 1.74793 0.462891 1.87994C0.462891 2.01195 0.48947 2.14266 0.541097 2.26452C0.592723 2.38638 0.668374 2.49698 0.763686 2.58994L5.07531 6.82994C5.16985 6.92367 5.28232 6.99806 5.40624 7.04883C5.53015 7.0996 5.66307 7.12574 5.79731 7.12574C5.93155 7.12574 6.06447 7.0996 6.18838 7.04883C6.3123 6.99806 6.42477 6.92367 6.5193 6.82994L10.8818 2.58994C10.9771 2.49698 11.0527 2.38638 11.1044 2.26452C11.156 2.14266 11.1826 2.01195 11.1826 1.87994C11.1826 1.74793 11.156 1.61723 11.1044 1.49537C11.0527 1.37351 10.9771 1.26291 10.8818 1.16994Z" fill="#3D466C"/>
+                    </svg>
+
                 </div>
                 <div v-show="ContractOptionisVisible==true" id="contractOptions">
                     
                     <div id="clientSelected" v-for="element in clientOptions" :key="element">
                         {{element.name}}
-                       <custom-multiselect :initialOption="element.option" v-on:childtoparent="onChildClick($event,element.id)" :key="element.option"></custom-multiselect>
+                       <custom-multiselect :initialOption="element.option" :initialValue="element.value" v-on:childtoparent="onMultiselectOptionClick($event,element.id)" :key="element.option"></custom-multiselect>
                     </div>
                 </div>
             </div>
@@ -219,7 +223,7 @@
                     { "id": "Default", "name": "En défault", "color": "#EE685E" },
                 ],
                 clientOptions: [
-                    { "option": hierarchy.Children, "id": 0, "name": "Client"},
+                    { "option": hierarchy.Children, "value": [], "id": 0, "name": "Client"},
                 ],
                 dateSelected: "2010-01-01",
                 periodSelected: "10",
@@ -237,36 +241,47 @@
             }
         },
         methods: {
-            onChildClick (val, index) {
+            onMultiselectOptionClick (val, index) {
                 let multiselectOrganization = [];
                 if (index == 0) {
-                this.clientOptions = this.clientOptions.filter(el => {
+                    this.clientOptions = this.clientOptions.filter(el => {
                     return el.id <= index
                 })}
-                val.forEach(el => {
-                clientOrganization.forEach( element => {
-                    if(el.Label == element.Id)
-                    multiselectOrganization.push(element)
-                })
-                });
-                
+               this.clientOptions[index].value = this.getValue(val)
                 if (index == 0) {
-                this.numberOfMultiselect = this.getNumberOfMultiselect(multiselectOrganization)
+                    val.forEach(el => {
+                        clientOrganization.forEach( element => {
+                            if(el.Label == element.Id)
+                            multiselectOrganization.push(element)
+                        })
+                    });
+                    this.numberOfMultiselect = this.getNumberOfMultiselect(multiselectOrganization)
                 for(let nb = 0 ; nb < this.numberOfMultiselect; nb += 1) {   
-                this.clientOptions.push({"option": [], "id":  (nb+1), "name": this.getNameByTier(nb, multiselectOrganization)});
+                this.clientOptions.push({"option": [], "value": [], "id":  (nb+1), "name": this.getNameByTier(nb, multiselectOrganization)});
                 }}
+                this.setValueIfOnlyOneChildren(val, index);
                 if(index < this.numberOfMultiselect) {
                     this.clientPathSelected[index] = val
-                    this.clientOptions[index+1].option = this.getOptions(val);
-                    for (let nb = index+2; nb <= this.numberOfMultiselect; nb += 1) {
-                        this.clientOptions[nb].option = this.getOptions(this.clientOptions[nb-1].option)
+                   
+                    for (let nb = index+1; nb <= this.numberOfMultiselect; nb += 1) {
+                        this.clientOptions[nb].option = this.getFirstOptions(this.clientOptions, nb)
                     }
                 }
                 this.clientPathSelected[index] = this.getPath(val)
                 this.clientPathSelected = this.cleanPath(this.clientPathSelected, index)
             },
-            getOptions(parentSelectOptions) {
-                return parentSelectOptions.flatMap(el => el.Children)
+            getValue(selectPath) {
+                return selectPath.flatMap(el => el.Path)
+            },
+            getFirstOptions(client, index) {
+                if (client[index-1].value.length === 0)
+                    return client[index-1].option.flatMap(el => el.Children)
+                 let clientChildren = client[index-1].value.flatMap(singleValue => 
+                    client[index-1].option.filter(objOption => {
+                        return objOption.Path === singleValue 
+                    })
+                )
+                return clientChildren.flatMap(el => el.Children)
             },
             getNumberOfMultiselect(val) {
             let numbermax = 0;
@@ -306,26 +321,21 @@
                         return el
                     })
                 }
-
-                /*result = tier1.map(element => { 
-                return tier2.filter(el => el.includes(element))
-                })
-
-                result = result.flatMap((el, index) => {
-                    if (el.length == 0) {
-                    return el = tier1[index]
-                    }
-                else 
-                    return el
-                })*/
                 return result
             },
-            cleanPath(table, index) {
+            cleanPath(clientPath, index) {
                 for (let nb = 0; nb <= this.numberOfMultiselect; nb += 1) {
                     if (nb > index)
-                    table[nb] = []
+                    clientPath[nb] = []
                 }
-                return table
+                return clientPath
+            },
+            setValueIfOnlyOneChildren(selectPath, index) {
+                if(selectPath.flatMap(el => el.Children).length === 1) {
+                    this.clientOptions[index+1].value = selectPath.flatMap(el => {
+                        return el.Children.flatMap(element => element.Path)
+                    })
+                }
             },
             selectAllTransmiter: function () {
                 this.selectedIdTransmiter = [];

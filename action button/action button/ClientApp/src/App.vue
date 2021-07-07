@@ -1,16 +1,17 @@
 <template>
     <meta charset="utf-8" />
-    <nav-menu></nav-menu>
+
     <router-view />
 </template>
 
 <script>
-    import NavMenu from './components/NavMenu.vue'
+
+    
 
 export default {
         name: 'App',
   components: {
-      NavMenu
+
   }
 }
 </script>
