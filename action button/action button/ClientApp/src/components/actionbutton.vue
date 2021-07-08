@@ -161,19 +161,65 @@
                     <tr>
                         <th>
                             Redondance
-                            <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg @click="redAndDiagIsVisble = !redAndDiagIsVisble"  width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.17535 5.28995L1.86372 1.04995C1.76918 0.95622 1.65671 0.881826 1.5328 0.831057C1.40888 0.780288 1.27597 0.75415 1.14172 0.75415C1.00748 0.75415 0.874567 0.780288 0.750649 0.831057C0.626731 0.881826 0.514262 0.95622 0.419729 1.04995C0.230331 1.23731 0.124023 1.49076 0.124023 1.75495C0.124023 2.01913 0.230331 2.27259 0.419729 2.45995L4.01953 5.99995L0.419729 9.53995C0.230331 9.72731 0.124023 9.98076 0.124023 10.2449C0.124023 10.5091 0.230331 10.7626 0.419729 10.9499C0.514747 11.0426 0.627435 11.116 0.751331 11.1657C0.875227 11.2155 1.00789 11.2407 1.14172 11.2399C1.27555 11.2407 1.40822 11.2155 1.53212 11.1657C1.65601 11.116 1.7687 11.0426 1.86372 10.9499L6.17535 6.70995C6.27066 6.61699 6.34631 6.50638 6.39794 6.38453C6.44956 6.26267 6.47614 6.13196 6.47614 5.99995C6.47614 5.86794 6.44956 5.73723 6.39794 5.61537C6.34631 5.49351 6.27066 5.38291 6.17535 5.28995Z" fill="#3D466C" />
                             </svg>
-
                         </th>
                         <th>
                             Diagnostique
-                            <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg @click="redAndDiagIsVisble = !redAndDiagIsVisble" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.17535 5.28995L1.86372 1.04995C1.76918 0.95622 1.65671 0.881826 1.5328 0.831057C1.40888 0.780288 1.27597 0.75415 1.14172 0.75415C1.00748 0.75415 0.874567 0.780288 0.750649 0.831057C0.626731 0.881826 0.514262 0.95622 0.419729 1.04995C0.230331 1.23731 0.124023 1.49076 0.124023 1.75495C0.124023 2.01913 0.230331 2.27259 0.419729 2.45995L4.01953 5.99995L0.419729 9.53995C0.230331 9.72731 0.124023 9.98076 0.124023 10.2449C0.124023 10.5091 0.230331 10.7626 0.419729 10.9499C0.514747 11.0426 0.627435 11.116 0.751331 11.1657C0.875227 11.2155 1.00789 11.2407 1.14172 11.2399C1.27555 11.2407 1.40822 11.2155 1.53212 11.1657C1.65601 11.116 1.7687 11.0426 1.86372 10.9499L6.17535 6.70995C6.27066 6.61699 6.34631 6.50638 6.39794 6.38453C6.44956 6.26267 6.47614 6.13196 6.47614 5.99995C6.47614 5.86794 6.44956 5.73723 6.39794 5.61537C6.34631 5.49351 6.27066 5.38291 6.17535 5.28995Z" fill="#3D466C" />
                             </svg>
-
                         </th>
                     </tr>
+                    <tbody  v-show="redAndDiagIsVisble == true">
+
+                                <table>
+                                    <tr v-for="(element, index) in Diagnoctic" v-bind:key="index">
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox" :id="element[0].id" v-model="selectedIdRedondance" :value="element[0].id">
+                                                <span>
+                                                    
+                                                    {{ element[0].name }}
+                                                </span>
+                                            </label> 
+                                        </td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox" :id="element[1].id" v-model="selectedIdRedondance" :value="element[1].id">
+                                                <span>
+                                                    
+                                                    {{ element[1].name }}
+                                                </span>
+                                            </label> 
+                                        </td>
+                                    </tr>
+                                </table>
+                            <td>
+                                <table>
+                                    <tr v-for="(element, index) in Diagnoctic" v-bind:key="index">
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox" :id="element[0].id" v-model="selectedIdDiagnostic" :value="element[0].id">
+                                                <span>
+                                                    {{ element[0].name }}
+                                                </span>
+                                            </label> 
+                                        </td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox" :id="element[1].id" v-model="selectedIdDiagnostic" :value="element[1].id">
+                                                <span>
+                                                    
+                                                    {{ element[1].name }}
+                                                </span>
+                                            </label> 
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                    </tbody>
                 </table>
                 <div id="Send">
                     <div @click="resetInformation" id="btns">
@@ -222,6 +268,20 @@
                     { "id": "Fonctionnal", "name": "En Fonction", "color": "#FFA34E" },
                     { "id": "Default", "name": "En défault", "color": "#EE685E" },
                 ],
+                Diagnoctic: {
+                    tierOne: [
+                        {"id": "=1", "name": "= 1"},
+                        {"id": "=0", "name": "= 0"},
+                    ],
+                    tierTwo: [
+                        {"id": "=(3*6)", "name": "= (3-6)"},
+                        {"id": "=2", "name": "= 2"},
+                    ],
+                    tierThree: [
+                        {"id": ">10", "name": "> 10"},
+                        {"id": "=(7-10)", "name": "= (7-10)"},
+                    ],
+                },
                 clientOptions: [
                     { "option": hierarchy.Children, "value": [], "id": 0, "name": "Client"},
                 ],
@@ -233,11 +293,14 @@
                 allSelected: false,
                 allSelectedTransmiter: false,
                 allSelectedConcentrator: false,
+                selectedIdDiagnostic: [],
+                selectedIdRedondance: [],
                 selectedIdTransmiter: [],
                 selectedIdConcentrator: [],
                 selectedId: [],
                 FilterisVisible: false,
-                ContractOptionisVisible: false
+                ContractOptionisVisible: false,
+                redAndDiagIsVisble: false,
             }
         },
         methods: {
@@ -267,8 +330,6 @@
                         this.clientOptions[nb].option = this.getFirstOptions(this.clientOptions, nb)
                     }
                 }
-                this.clientPathSelected[index] = this.getPath(val)
-                this.clientPathSelected = this.cleanPath(this.clientPathSelected, index)
             },
             getValue(selectPath) {
                 return selectPath.flatMap(el => el.Path)
@@ -298,21 +359,19 @@
                 name.push(el.Levels[tier])
                 }
             })
-            name = name.filter(el => el != null)
-            name = name.join(' / ')
-            return name
-            },
-            getPath(value) {
-                return value.flatMap(el => el.Path)
+            return  name.filter(el => el != null)
+                        .join(' / ')
             },
             getLastPathPerTree(arrayOfPath) {
-                let result = arrayOfPath[0];
-
+                let result = arrayOfPath[0].value
                 for(let nb = 1; nb < arrayOfPath.length; nb += 1) {
                     let temp = result
                     result = result.map(element => {
-                        return arrayOfPath[nb].filter(el => el.includes(element))
+                        return arrayOfPath[nb].value.filter(el => {
+                            return el.includes(element)
+                            })
                     })
+                    
                     result = result.flatMap((el, index) => {
                         if (el.length == 0) {
                             return el = temp[index]
@@ -323,12 +382,8 @@
                 }
                 return result
             },
-            cleanPath(clientPath, index) {
-                for (let nb = 0; nb <= this.numberOfMultiselect; nb += 1) {
-                    if (nb > index)
-                    clientPath[nb] = []
-                }
-                return clientPath
+            cleanValue() {
+
             },
             setValueIfOnlyOneChildren(selectPath, index) {
                 if(selectPath.flatMap(el => el.Children).length === 1) {
@@ -368,7 +423,7 @@
                         [].push.call(this, elem);
                     }
                 };
-                emitInformations.ajoutElem(this.getLastPathPerTree(this.clientPathSelected))
+                emitInformations.ajoutElem(this.getLastPathPerTree(this.clientOptions))
                 emitInformations.ajoutElem(this.selectedIdTransmiter.concat(this.selectedIdConcentrator));
                 emitInformations.ajoutElem(this.dateSelected);
                 emitInformations.ajoutElem(this.periodSelected);
@@ -389,6 +444,9 @@
 </script>
 
 <style>
+    #checkboxRedoAndDiag {
+        width: 100%;
+    }
     .multiselect {
         background-color: white;
     }
@@ -547,7 +605,6 @@
     #checkboxList svg {
         margin: 0 19px 0 19px;
     }
-
     #footer {
         margin: 0 16px 0 16px;
         padding: 14px 0 16px 0;
@@ -559,11 +616,18 @@
         text-align: left;
         margin-bottom: 18px;
     }
-
-        #footerOptions svg {
-            position: relative;
-            right: -90px;
-        }
+    #footerOptions table {
+        background-color: #F5F7FA;
+        width: 100%;
+        margin-top: 10px;
+    }
+    #footerOptions th, #footerOptions td {
+        text-align: left;
+    }
+     #footerOptions svg {
+        position: relative;
+        right: -90px;
+    }
 
     #Send {
         display: flex;

@@ -46,7 +46,16 @@ export default {
          this.$emit('childtoparent', clientChildren)
      }
  },
+ mounted() {
+     if (this.initialValue.length > 0) {
+         let clientChildren = this.initialValue.flatMap(singleValue => 
+            this.option.filter(objOption => {
+                return objOption.Path === singleValue 
+            })
+         )
+         this.$emit('childtoparent', clientChildren)
+     }
+     
+ },
 }
-
-
 </script>
