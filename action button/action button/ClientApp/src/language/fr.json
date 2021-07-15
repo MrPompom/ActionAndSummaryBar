@@ -1,0 +1,38 @@
+{
+    "actionBoutton": [
+        {
+        "actionName": "Action",
+        "actionContract": "Contrat",
+        "Date": "Date",
+        "searchPerriod": "Période Recherché",
+        "transmiter": [
+            {
+                "allChoice": "Tout Choisir",
+                "transmiterOneFrameEveryDay": "Au moins 1 trame quot.",
+                "atLeast1Frame": "Au moins 1 trame",
+                "noFrame": "Aucune trame"
+            }
+        ],
+        "Concentrator": [
+            {
+                "allChoice": "Tout Choisir",
+                "variation": "Varations",
+                "Fonctionnal": "En Fonction",
+                "default": "En Défault"
+            }
+        ],
+        "redundancy": "Redondance",
+        "diagnostic": "Diagnostique",
+        "search": "Rechercher"
+        }
+    ],
+    "summaryBar": [
+        {
+            "summaryName": "Sommaire",
+            "TransmittersInstalled": "Emetteurs installés",
+            "concentratorInstalled": "Concentrateurs installés",
+            "transmiterRepresented": "Emetteurs représentés",
+            "concentratorRepresented": "Concentrateurs représentés"
+        }
+    ]
+}

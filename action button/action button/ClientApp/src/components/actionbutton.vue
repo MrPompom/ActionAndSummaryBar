@@ -1,6 +1,5 @@
 <template>
     <meta charset="utf-8">
-    <summary-bar></summary-bar>
     <div class="filter">
         <div class="filter-bar">
             <div>
@@ -180,7 +179,6 @@
                                             <label class="checkbox">
                                                 <input type="checkbox" :id="element[0].id" v-model="selectedIdRedondance" :value="element[0].id">
                                                 <span>
-                                                    
                                                     {{ element[0].name }}
                                                 </span>
                                             </label> 
@@ -188,8 +186,7 @@
                                         <td>
                                             <label class="checkbox">
                                                 <input type="checkbox" :id="element[1].id" v-model="selectedIdRedondance" :value="element[1].id">
-                                                <span>
-                                                    
+                                                <span> 
                                                     {{ element[1].name }}
                                                 </span>
                                             </label> 
@@ -247,14 +244,14 @@
     import hierarchy from "../assets/hierarchy.json"
     import clientOrganization from '../assets/clientOrganization'
     import CustomMultiselect from './CustomMultiselect.vue'
-    import SummaryBar from './summary.vue'
+    import enLangauge from "../language/en.json"
 
     export default {
         name: "Actionsbutton",
         components: {
             CustomMultiselect,
-            SummaryBar,
         },
+        emits: ["searchinformation"],
         data() {
             
             return {
@@ -264,8 +261,8 @@
                     { "id": "NoFrame", "name": "Aucune trame", "color": "#EE685E" },
                 ],
                 concentrator: [
-                    { "id": "Variation", "name": "Variations", "color": "#79E480" },
-                    { "id": "Fonctionnal", "name": "En Fonction", "color": "#FFA34E" },
+                    { "id": "Fonctionnal", "name": "En Fonction", "color": "#79E480"},
+                    { "id": "Variation", "name": "Variations", "color": "#FFA34E"},
                     { "id": "Default", "name": "En défault", "color": "#EE685E" },
                 ],
                 Diagnoctic: {
@@ -285,6 +282,7 @@
                 clientOptions: [
                     { "option": hierarchy.Children, "value": [], "id": 0, "name": "Client"},
                 ],
+                langage: enLangauge,
                 dateSelected: "2010-01-01",
                 periodSelected: "10",
                 numberOfMultiselect: 0,
@@ -428,7 +426,8 @@
                 emitInformations.ajoutElem(this.dateSelected);
                 emitInformations.ajoutElem(this.periodSelected);
                 
-                console.log(emitInformations)
+                console.log("child : ", emitInformations)
+                this.$emit('searchinformation', emitInformations)
             },
             resetInformation() {
                 this.allSelectedTransmiter = false;

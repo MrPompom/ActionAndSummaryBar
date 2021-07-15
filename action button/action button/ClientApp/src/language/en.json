@@ -1,0 +1,36 @@
+{
+    "actionBoutton": [
+        {
+        "actionName": "Action",
+        "actionContract": "Contract",
+        "Date": "Date",
+        "periodWanted": "Period Wanted",
+        "transmiter": [
+            {
+                "allChoice": "All Choice",
+                "transmiterOneFrameEveryDay": " At least 1 daily frame over the period.",
+                "atLeast1Frame": "At least 1 frame over the period.",
+                "noFrame": "No frame over the period."
+            }
+        ],
+        "Concentrator": [
+            {
+                "allChoice": "All Choice",
+                "Fonctionnal": "Up and running.",
+                "variation": "Performance variations.",
+                "inDefault": " Out of order."
+            }
+        ],
+        "redundancy": "Redundancy",
+        "diagnostic": "Diagnostic",
+        "search": "Rechercher"
+        }
+    ],
+    "summaryBar": {
+            "summaryName": "Summary",
+            "transmittersInstalled": "transmitters installed",
+            "concentratorInstalled": "Concentrator installed",
+            "transmitterDepicted": "transmitters depicted",
+            "concentratorDepicted": "Concentrateurs depicted"
+    }
+}

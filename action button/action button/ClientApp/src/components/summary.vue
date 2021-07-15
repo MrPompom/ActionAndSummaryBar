@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <div id="summary">
         <div id="summary-bar">
-            <span>Sommaire</span>
+            <span>{{langage.summaryBar.summaryName}}</span>
             <transition></transition>
             <div>
                 <svg v-if="SummaryisVisible===false" @click="SummaryisVisible=!SummaryisVisible" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,8 +18,8 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Emetteurs installés</th>
-                        <th>Emetteurs représentés</th>
+                        <th>{{langage.summaryBar.transmittersInstalled}}</th>
+                        <th>{{langage.summaryBar.transmitterDepicted}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,8 +60,8 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Concentrateurs installés</th>
-                        <th>Concentrateurs représentés</th>
+                        <th>{{langage.summaryBar.concentratorInstalled}}</th>
+                        <th>{{langage.summaryBar.concentratorDepicted}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,10 +126,13 @@
     </div>
 </template>
 <script>
+     import enLangauge from "../language/en.json"
+
     export default {
         name: "Summary",
         data() {
             return {
+                langage: enLangauge,
                 SummaryisVisible: false,
                 greenTransmiterInstalled: 10000000,
                 greenTransmiterVisible: 291000,
